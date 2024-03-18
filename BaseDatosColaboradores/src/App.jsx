@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CustomAlert from './components/Alert';
+import Buscador from './components/Buscador';
+import Formulario from './components/Formulario';
+import Listado from './components/Listado';
+import { BaseColaboradores } from './components/BaseColaboradores';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [colaboradores, setColaboradores] = useState(BaseColaboradores);
+  const [mensaje, setMensaje] = useState('');
+  const [color, setColor] = useState('');
+  const [busqueda, setBusqueda] = useState('');
+
+  const handleAgregarColaborador = nuevoColaborador => {
+    setColaboradores([...colaboradores, { id: colaboradores.length + 1, ...nuevoColaborador }]);
+  }
+    
+
+  const handleEliminarColaborador = id => {
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
+  };
+
+  const handleBuscar = termino => {
+    setBusqueda(termino);
+  };
+
+  const handleAlerta = (mensaje, color) => {
+    setMensaje(mensaje);
+    setColor(color);
+  };
+
+  const colaboradoresFiltrados = colaboradores.filter(colaborador => {
+    return (
+      colaborador.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+      colaborador.correo.toLowerCase().includes(busqueda.toLowerCase()) ||
+      colaborador.cargo.toLowerCase().includes(busqueda.toLowerCase())
+    );
+  });
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Lista de Colaboradores</h1>
+      <Buscador onBuscar={handleBuscar} />
+      <Listado colaboradores={colaboradoresFiltrados} eliminarColaborador={handleEliminarColaborador} />
+      <h1>Agregar colaborador</h1>
+      <Formulario onAgregarColaborador={handleAgregarColaborador} onAlerta={handleAlerta}/>
+      {mensaje && <CustomAlert mensaje={mensaje} color={color} />}
     </>
-  )
+  );
 }
-
-export default App
+export default App;
