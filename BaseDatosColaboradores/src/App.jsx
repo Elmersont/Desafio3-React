@@ -5,6 +5,10 @@ import Buscador from './components/Buscador';
 import Formulario from './components/Formulario';
 import Listado from './components/Listado';
 import { BaseColaboradores } from './components/BaseColaboradores';
+import './App.css'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function App() {
   const [colaboradores, setColaboradores] = useState(BaseColaboradores);
@@ -40,12 +44,26 @@ function App() {
 
   return (
     <>
-      <h1>Lista de Colaboradores</h1>
-      <Buscador onBuscar={handleBuscar} />
+      <Container>
+      <Row>
+        <Col sm={8}>
+         <h1>Lista de Colaboradores</h1>
+      <Buscador onBuscar={handleBuscar}/>
       <Listado colaboradores={colaboradoresFiltrados} eliminarColaborador={handleEliminarColaborador} />
-      <h1>Agregar colaborador</h1>
-      <Formulario onAgregarColaborador={handleAgregarColaborador} onAlerta={handleAlerta}/>
-      {mensaje && <CustomAlert mensaje={mensaje} color={color} />}
+        </Col>
+
+        <Col sm={4}>
+          <div>
+            <h1>Agregar colaborador</h1>
+            <Formulario onAgregarColaborador={handleAgregarColaborador} onAlerta={handleAlerta}/>
+            {mensaje && <CustomAlert mensaje={mensaje} color={color}/>}
+          </div>
+        
+
+        </Col>
+      </Row>
+    </Container>
+      
     </>
   );
 }

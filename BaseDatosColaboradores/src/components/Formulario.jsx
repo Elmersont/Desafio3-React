@@ -59,29 +59,34 @@ const Formulario = ({ onAgregarColaborador, onAlerta }) => {
     };
 
     return (
-        <>       
+        <> 
+        <div className='p-4'>
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="nombre">
+            <Form.Group controlId="nombre" className="m-4">
                 <Form.Control type="text" name="nombre" value={nuevoColaborador.nombre} onChange={handleChange} placeholder='Nombre del colaborador' />
             </Form.Group>
-            <Form.Group controlId="correo">
+            <Form.Group controlId="correo" className="m-4">
                 <Form.Control type="email" name="correo" value={nuevoColaborador.correo} onChange={handleChange} placeholder='Email del colaborador' />
             </Form.Group>
-            <Form.Group controlId="edad">
+            <Form.Group controlId="edad" className="m-4">
                 <Form.Control type="number" name="edad" value={nuevoColaborador.edad} onChange={handleChange} placeholder='Edad del colaborador'/>
             </Form.Group>
-            <Form.Group controlId="cargo">
+            <Form.Group controlId="cargo" className="m-4">
                 <Form.Control type="text" name="cargo" value={nuevoColaborador.cargo} onChange={handleChange} placeholder='Cargo del colaborador' />
             </Form.Group>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3 mx-4" style={{ width: '85%' }}>
                 <InputGroup.Text id="basic-addon1">+569</InputGroup.Text>
                 <Form.Control type="tel" name="telefono" value={nuevoColaborador.telefono} onChange={handleChange} placeholder='Teléfono del colaborador'/>
             </InputGroup>
         
-            <Button variant="success" type="submit">
+            <Button variant="success" type="submit" className="m-4" style={{ width: '85%' }}>
                 Agregar
             </Button>
-        </Form>
+        </Form>    
+            
+        
+        </div>      
+        
     
         </>
  
